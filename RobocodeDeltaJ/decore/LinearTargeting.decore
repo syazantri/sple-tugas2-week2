@@ -1,0 +1,5 @@
+ configuration delta "LinearTargeting"
+	dialect <http://www.emftext.org/java>
+		{
+	}
+	

@@ -1,0 +1,19 @@
+ configuration delta "Line"
+	dialect <http://www.emftext.org/java>
+		requires <AutoMovement.decore>
+		modifies <../src/jab/module/Movement.java>
+		{
+	addMember(<class:jab.module.Movement>, "int moveDirection = 1;
+");
+	modifyStatementListContainer(<method:jab.module.Movement.move()>, "public void move() {
+            bot.setMaxVelocity(8);
+            bot.setAhead(10000 * moveDirection);
+	}
+", "Line", false);
+	modifyStatementListContainer(<method:jab.module.Movement.listen(Event)>, "public void listen(Event e) {
+            if (e instanceof robocode.HitWallEvent) {
+                moveDirection *= -1;
+            }}
+", "Line", false);
+	}
+	

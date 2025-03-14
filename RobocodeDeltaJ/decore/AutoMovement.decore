@@ -1,0 +1,6 @@
+ configuration delta "AutoMovement"
+	dialect <http://www.emftext.org/java>
+		modifies <../src/jab/module/Movement.java>
+		{
+	}
+	

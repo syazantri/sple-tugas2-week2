@@ -1,0 +1,5 @@
+ configuration delta "NewDelta"
+	dialect <http://www.emftext.org/java>
+		{
+	}
+	

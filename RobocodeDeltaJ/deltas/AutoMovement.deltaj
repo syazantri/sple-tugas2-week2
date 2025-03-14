@@ -1,0 +1,6 @@
+delta AutoMovement {    
+
+    modifies jab.module.Movement {
+    }
+
+}

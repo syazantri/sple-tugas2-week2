@@ -1,0 +1,5 @@
+ configuration delta "MaximumPowerGun"
+	dialect <http://www.emftext.org/java>
+		{
+	}
+	

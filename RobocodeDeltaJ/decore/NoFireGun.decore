@@ -1,0 +1,5 @@
+ configuration delta "NoFireGun"
+	dialect <http://www.emftext.org/java>
+		{
+	}
+	

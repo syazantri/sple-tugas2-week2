@@ -1,0 +1,68 @@
+ configuration delta "KeyboardMovement"
+	dialect <http://www.emftext.org/java>
+		requires <AutoMovement.decore>
+		modifies <../src/jab/module/Movement.java>
+		{
+	addMember(<class:jab.module.Movement>, "int moveDirection = 0;
+");
+	addMember(<class:jab.module.Movement>, "int turnDirection = 0;
+");
+	addMember(<class:jab.module.Movement>, "boolean isMoving = false;
+");
+	addMember(<class:jab.module.Movement>, "double moveAmount = 0;
+");
+	modifyStatementListContainer(<method:jab.module.Movement.move()>, "public void move() {
+            bot.setAhead(Double.POSITIVE_INFINITY * moveDirection);
+            
+            bot.setTurnRight(45 * turnDirection);
+            
+            bot.execute();
+	}
+", "KeyboardMovement", false);
+	modifyStatementListContainer(<method:jab.module.Movement.listenInput(InputEvent)>, "public void listenInput(InputEvent e) {
+            if (e instanceof java.awt.event.KeyEvent) {
+                int keyID = ((java.awt.event.KeyEvent) e).getID();
+                int keyCode = ((java.awt.event.KeyEvent) e).getKeyCode();
+        
+                if (keyID == 401) {
+                    switch (keyCode) {
+                        case 38: // VK_UP
+                            moveDirection = 1;
+                            isMoving = true;
+                            moveAmount = Double.POSITIVE_INFINITY;
+                            break;
+                        case 40: // VK_DOWN
+                            moveDirection = -1;
+                            isMoving = true;
+                            moveAmount = Double.POSITIVE_INFINITY;
+                            break;
+                        case 39: // VK_RIGHT
+                            turnDirection = 1;
+                            break;
+                        case 37: // VK_LEFT
+                            turnDirection = -1;
+                            break;
+                    }
+                    move();
+                } 
+                
+                else if (keyID == 402) {
+                    switch (keyCode) {
+                        case 38: // VK_UP
+                        case 40: // VK_DOWN
+                            moveDirection = 0;
+                            isMoving = false;
+                            bot.setAhead(0); 
+                            break;
+                        case 39: // VK_RIGHT
+                        case 37: // VK_LEFT
+                            turnDirection = 0;
+                            break;
+                    }
+                    move();
+                }
+            }
+	}
+", "KeyboardMovement", false);
+	}
+	

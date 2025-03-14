@@ -1,0 +1,5 @@
+ configuration delta "MouseRadar"
+	dialect <http://www.emftext.org/java>
+		{
+	}
+	
