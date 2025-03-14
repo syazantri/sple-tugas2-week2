@@ -1,0 +1,27 @@
+delta AlternatingSelectEnemy {
+    modifies jab.module.SelectEnemy {
+        adds import java.util.Iterator;
+        adds import jab.module.BotInfo;
+        
+        adds boolean targetStrongest = true;
+        
+        modifies select() {
+            
+            if (targetStrongest) {
+                Iterator<BotInfo> iterator = bot.botsInfo.values().iterator();
+                double maxEnergy = Double.MIN_VALUE;
+                BotInfo selected = null;
+                
+                while (iterator.hasNext()) {
+                    BotInfo e = iterator.next();
+                    if (maxEnergy < e.energy) {
+                        selected = e;
+                        maxEnergy = e.energy;
+                    }
+                }
+                
+                bot.enemy = selected;
+            } 
+        }
+    }
+}

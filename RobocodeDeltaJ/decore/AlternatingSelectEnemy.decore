@@ -1,0 +1,29 @@
+ configuration delta "AlternatingSelectEnemy"
+	dialect <http://www.emftext.org/java>
+		modifies <../src/jab/module/SelectEnemy.java>
+		{
+	addClassifierImport(<class:jab.module.SelectEnemy>, "java.util.Iterator");
+	addClassifierImport(<class:jab.module.SelectEnemy>, "jab.module.BotInfo");
+	addMember(<class:jab.module.SelectEnemy>, "boolean targetStrongest = true;
+");
+	modifyStatementListContainer(<method:jab.module.SelectEnemy.select()>, "public void select() {
+            
+            if (targetStrongest) {
+                Iterator<BotInfo> iterator = bot.botsInfo.values().iterator();
+                double maxEnergy = Double.MIN_VALUE;
+                BotInfo selected = null;
+                
+                while (iterator.hasNext()) {
+                    BotInfo e = iterator.next();
+                    if (maxEnergy < e.energy) {
+                        selected = e;
+                        maxEnergy = e.energy;
+                    }
+                }
+                
+                bot.enemy = selected;
+            }
+	}
+", "AlternatingSelectEnemy", false);
+	}
+	

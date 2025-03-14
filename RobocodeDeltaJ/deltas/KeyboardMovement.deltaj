@@ -1,4 +1,4 @@
-delta KeyboardMovement requires AutoMovement {    
+delta KeyboardMovement {    
     modifies jab.module.Movement {
         
         adds int moveDirection = 0;

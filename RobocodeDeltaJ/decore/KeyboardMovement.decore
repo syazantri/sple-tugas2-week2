@@ -1,6 +1,5 @@
  configuration delta "KeyboardMovement"
 	dialect <http://www.emftext.org/java>
-		requires <AutoMovement.decore>
 		modifies <../src/jab/module/Movement.java>
 		{
 	addMember(<class:jab.module.Movement>, "int moveDirection = 0;

@@ -45,3 +45,6 @@ MouseClickGun:
 
 Zigzag:
 <decore/Zigzag.decore>
+
+AlternatingSelectEnemy:
+<decore/AlternatingSelectEnemy.decore>
