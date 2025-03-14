@@ -1,0 +1,40 @@
+delta EfficiencyGun {
+    modifies jab.module.Gun {
+        adds import robocode.Rules;
+        adds import robocode.Bullet;
+        
+        adds private double chargeLevel = 0;
+
+        modifies fire() {
+            if (bot.enemy == null) return;
+
+            double bulletPower = calculateBulletPower();
+            bulletPower = applyEnergyLimit(bulletPower);
+            bulletPower = applyChargeLevel(bulletPower);
+
+            bot.bulletPower = bulletPower;
+
+            if (bot.getGunHeat() == 0) {
+                Bullet b = bot.setFireBullet(bulletPower);
+                bot.registerBullet(b);
+                chargeLevel = 0;
+            } else {
+                chargeLevel += 0.1;
+            }
+        }
+
+        adds private double calculateBulletPower() {
+            if (bot.getEnergy() < 20) return Rules.MIN_BULLET_POWER;
+            if (bot.enemy.energy < 20) return Rules.MAX_BULLET_POWER;
+            return Math.min(Rules.MAX_BULLET_POWER, bot.getEnergy() / 10);
+        }
+
+        adds private double applyEnergyLimit(double bulletPower) {
+            return Math.min(bulletPower, bot.getEnergy() - 0.1);
+        }
+
+        adds private double applyChargeLevel(double bulletPower) {
+            return Math.min(Rules.MAX_BULLET_POWER, bulletPower + chargeLevel);
+        }
+    }
+}

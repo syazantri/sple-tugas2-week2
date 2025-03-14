@@ -22,6 +22,20 @@
                 }
                 
                 bot.enemy = selected;
+            } else {
+                Iterator<BotInfo> iterator = bot.botsInfo.values().iterator();
+                double minEnergy = Double.MAX_VALUE;
+                BotInfo selected = null;
+                
+                while (iterator.hasNext()) {
+                    BotInfo e = iterator.next();
+                    if (minEnergy > e.energy) {
+                        selected = e;
+                        minEnergy = e.energy;
+                    }
+                }
+                
+                bot.enemy = selected;
             }
 	}
 ", "AlternatingSelectEnemy", false);
