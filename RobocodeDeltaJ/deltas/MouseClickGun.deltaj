@@ -1,2 +1,40 @@
 delta MouseClickGun {
+    modifies jab.module.Gun {
+        adds import java.awt.event.InputEvent;
+        adds import java.awt.event.MouseEvent;
+        adds import robocode.Bullet;
+
+        modifies fire() {
+            if (bot.bulletPower > 0 && bot.getGunHeat() == 0) {
+                Bullet b = bot.setFireBullet(bot.bulletPower);
+                bot.registerBullet(b);
+            }
+        }
+
+        adds public void listenInput(InputEvent e) {
+            if (e instanceof MouseEvent) {
+                MouseEvent mouseEvent = (MouseEvent) e;
+
+                switch (mouseEvent.getID()) {
+                    case MouseEvent.MOUSE_PRESSED:
+                        switch (mouseEvent.getButton()) {
+                            case MouseEvent.BUTTON3:
+                                bot.bulletPower = 3;
+                                break;
+                            case MouseEvent.BUTTON2:
+                                bot.bulletPower = 2;
+                                break;
+                            default:
+                                bot.bulletPower = 1;
+                                break;
+                        }
+                        break;
+
+                    case MouseEvent.MOUSE_RELEASED:
+                        bot.bulletPower = 0;
+                        break;
+                }
+            }
+        }
+    }
 }
