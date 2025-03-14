@@ -1,0 +1,18 @@
+delta RandomTargeting {
+    modifies jab.module.Targeting {
+        adds import robocode.util.Utils;
+        adds import java.util.Random;
+
+        adds Random rng = new Random();
+
+        modifies target() {
+            if (bot.enemy != null) {
+                double absoluteBearing = bot.getHeadingRadians() + bot.enemy.bearingRadians;
+                double randomAdjustment = (rng.nextDouble() - 0.5) * Math.toRadians(10); // Randomize aim within ±5 degrees
+                bot.setTurnGunRightRadians(Utils.normalRelativeAngle(
+                    absoluteBearing - bot.getGunHeadingRadians() + randomAdjustment
+                ));
+            }
+        }
+    }
+}

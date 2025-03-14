@@ -19,6 +19,9 @@ LinearTargeting:
 MouseTargeting:
 <decore/MouseTargeting.decore>
 
+RandomTargeting:
+<decore/MouseTargeting.decore>
+
 NoMovement:
 <decore/Quiet.decore>
 
