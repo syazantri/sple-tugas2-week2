@@ -3,9 +3,16 @@ delta AlternatingSelectEnemy {
         adds import java.util.Iterator;
         adds import jab.module.BotInfo;
         
+        adds long lastSwitchTime = 0;
         adds boolean targetStrongest = true;
+        adds final long SWITCH_INTERVAL = 2000; // 2 seconds in milliseconds
         
         modifies select() {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastSwitchTime > SWITCH_INTERVAL) {
+                targetStrongest = !targetStrongest;
+                lastSwitchTime = currentTime;
+            }
             
             if (targetStrongest) {
                 Iterator<BotInfo> iterator = bot.botsInfo.values().iterator();
