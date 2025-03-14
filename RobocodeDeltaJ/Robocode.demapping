@@ -40,6 +40,9 @@ StrongestSelectEnemy:
 MaximumPowerGun:
 <decore/MaximumPowerGun.decore>
 
+EfficiencyGun:
+<decore/EfficiencyGun.decore>
+
 NoFireGun:
 <decore/NoFireGun.decore>
 
